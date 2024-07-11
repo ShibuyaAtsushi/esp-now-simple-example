@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+m5core2/.pio
+m5AtomS3Lite/.pio
