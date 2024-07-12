@@ -1,5 +1,8 @@
 # ESP-NOW 簡単な例 / ESP-NOW Simple Example
 
+#### 動作の様子 (M5Atom Click Triggers M5Core2 Counter)
+![動作の様子](images/demo.gif)
+
 ## 日本語
 
 ### 概要
@@ -36,8 +39,7 @@ graph TD
     G --> D
 
 ```
-### 動作の様子
-![動作の様子](images/demo.gif)
+
 
 
 ## English
