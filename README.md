@@ -1,6 +1,6 @@
 # ESP-NOW 簡単な例 / ESP-NOW Simple Example
 
-#### 動作の様子 (M5Atom Click Triggers M5Core2 Counter)
+#### 動作の様子 (Click M5Atom to Update M5Core2 Value)
 ![動作の様子](images/demo.gif)
 
 ## 日本語
@@ -66,3 +66,12 @@ This sample demonstrates how to implement these basic settings and achieve simpl
 4. Each time you press the button on the m5Atom, the number of button presses will be communicated via ESP-NOW and displayed on the m5core2.
 
 This simple demonstration showcases the basic functionality of ESP-NOW communication between two devices.
+
+graph TD
+    A[Start] --> B[Upload program]
+    B --> C[Run both devices]
+    C --> D{Press button on M5Atom}
+    D --> E[Send via ESP-NOW]
+    E --> F[Receive on M5Core2]
+    F --> G[Display button press count on M5Core2]
+    G --> D
