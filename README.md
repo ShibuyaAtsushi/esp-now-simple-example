@@ -38,6 +38,7 @@ graph TD
 ```
 
 ![動作の様子](images/demo.gif)
+動作の様子
 
 
 ## English
