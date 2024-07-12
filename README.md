@@ -67,6 +67,7 @@ This sample demonstrates how to implement these basic settings and achieve simpl
 
 This simple demonstration showcases the basic functionality of ESP-NOW communication between two devices.
 
+```mermaid
 graph TD
     A[Start] --> B[Upload program]
     B --> C[Run both devices]
@@ -75,3 +76,4 @@ graph TD
     E --> F[Receive on M5Core2]
     F --> G[Display button press count on M5Core2]
     G --> D
+```
