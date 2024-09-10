@@ -1,56 +1,10 @@
-// #include <M5Unified.h>
-// #include <WiFi.h>
-// #include <esp_now.h>
-// int count = 0;
-
-
-// void onReceive(const uint8_t *mac, const uint8_t *incomingData, int len) { //*macは送信元のMACアドレス、incomingDataは送信されたデータ、lenはデータの長さ
-//   if (incomingData[0] == 1) {
-//     M5.Lcd.fillScreen(BLACK);
-//     M5.Lcd.setCursor(0, 0);
-//     M5.Lcd.setTextSize(4);
-//     M5.Lcd.setTextColor(WHITE);
-//     M5.Lcd.println("Push");
-//     count = count+1;
-
-//   }
-// }
-
-// void setup() {
-//   Serial.begin(115200);
-//   M5.begin();
-//   M5.Lcd.fillScreen(BLACK);
-//   M5.Lcd.setCursor(0, 0);
-//   M5.Lcd.setTextSize(3);
-//   M5.Lcd.setTextColor(WHITE);
-//   WiFi.mode(WIFI_STA);
-//   WiFi.disconnect();
-
-//   if (esp_now_init() == ESP_OK) {
-//     Serial.println("ESPNow Init Success");
-//     M5.Lcd.println("ESPNow Init Success!");
-//   } else {
-//     Serial.println("ESPNow Init Failed");
-//     delay(3000);
-//     ESP.restart();
-//   }
-
-//   esp_now_register_recv_cb(onReceive);
-// }
-
-// void loop() {
-//   // Serial.println("ESPNow Init Success");
-//   M5.Lcd.print(count);
-//   delay(1000);
-// }
-
-
+//必要なものはこれだけ！
 #include <M5Unified.h>
 #include <WiFi.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
 
-
+// 送信側・受信側で共通の構造体を定義する
 typedef struct PacketData {
   uint8_t sensor1;
   uint8_t sensor2;
@@ -65,91 +19,64 @@ typedef struct PacketData {
   float temp;
 } PacketData;
 
-PacketData packetdata1 = {1, 2, 3, 99};
-PacketData receivedData = {1, 2, 3, 99, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+// 受信データを格納するための構造体変数を作成
+PacketData receivedData; 
 
-int count = 0;
-float flag = 0;
-int length = 0;
-
-void onReceive(const uint8_t *mac, const uint8_t *incomingData, int len) { //*macは送信元のMACアドレス、incomingDataは送信されたデータ、lenはデータの長さ。この関数を、後でsetupで、データ受信時に自動で呼び出されるコールバック関数として登録することで機能する。
-  //if (len == sizeof(receivedData)) {  // 受信データはPacketData型の構造体を想定しているので、そのサイズと一致するか確認
-    // PacketData receivedData;  // 受信データを格納するための構造体のインスタンス（構造体変数）を作成
-    // 受信したデータを構造体にコピー
-    memcpy(&receivedData, incomingData, sizeof(PacketData)); //受信したデータを構造体にコピーする。第一引数にコピー先の構造体変数のアドレス、第二引数にコピー元のデータの!アドレス!、第三引数にコピーするデータのサイズを指定する。
-    //↑構造体変数receivedDataのアドレスに、アドレスであるincomingdataが指し示すデータを、指定のサイズ分コピーする。これでincomingdataが指しているデータの実体をreceiveddataにコピーすることができた。
+//受信時の割り込み関数を定義。ここはこのままで良い。（*macには送信元のMACアドレス、incomingDataには送信されたデータ、lenにはそのデータの長さzの値が勝手に入る。この関数を、後でsetup関数内でデータ受信時に自動で呼び出される割り込み関数として登録することで機能する。）
+void onReceive(const uint8_t *mac, const uint8_t *incomingData, int len) { 
+  if (len == sizeof(receivedData)) {  // 受信したデータはPacketData型の構造体を想定しているので、そのサイズと一致しているか念の為確認。
+    memcpy(&receivedData, incomingData, sizeof(PacketData)); //受信したデータを構造体にコピーする。第一引数にコピー先の構造体変数のアドレス、第二引数にコピー元のデータのアドレス、第三引数にコピーするデータのサイズを指定する。
+    //↑構造体変数receivedDataのアドレスに、受け取ったデータが格納されているアドレスが入っているポインタ「incomingdata」が指し示すデータを、指定のサイズ分コピーする。これでincomingdataが指しているデータの実体をreceivedDataにコピーすることができる。
     //構造体変数receivedDataに、受信したデータが格納された。以降これをつかう。
-    // Serial.print("ジュシンシマシタ：");
-    flag = 1;
-    count = count+1;
-    length = len;
-    // M5.Lcd.print("sensor1:");
-    // M5.Lcd.print(receivedData.sensor1);
-    // M5.Lcd.print("sensor2:");
-    // M5.Lcd.print(receivedData.sensor2);
-    // M5.Lcd.print("sensor3:");
-    // M5.Lcd.print(receivedData.sensor3);
-    // M5.Lcd.print("button_state:");
-    // M5.Lcd.print(receivedData.button_state);
-  //}
+    //incomingDataはポインタである。
+}
 }
 
 void setup() {
-  Serial.begin(115200);
+  // Serial.begin(115200);
   M5.begin();
-  M5.Lcd.fillScreen(BLACK);
-  M5.Lcd.setCursor(0, 0);
-  M5.Lcd.setTextSize(3);
-  M5.Lcd.setTextColor(WHITE);
-  
+
+  //ESP_NOWを使うにはこれが必要
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
 
-  esp_wifi_set_channel(8, WIFI_SECOND_CHAN_NONE);//ESPNOWで使用するWiFiのチャンネルを設定する。送信側の「peerInfo.channel = 8;」と合わせる必要がある（８は例）。（近いチャンネル（８だったら６や７）だと混信する可能性あり。）
+  esp_wifi_set_channel(8, WIFI_SECOND_CHAN_NONE);//ESPNOWで使用するWiFiのチャンネルを設定する。送信側の「peerInfo.channel = 8;」と合わせる必要がある（８は例）。（近いチャンネル（８だったら６や７）だと混信する可能性あり。）12チャンネルまで選べる
 
-  if (esp_now_init() == ESP_OK) {
-    Serial.println("ESPNow Init Success");
+  if (esp_now_init() == ESP_OK) { //初期化がうまくいかなかったらリスタート。ここもそのままで良い。
+    Serial.println("ESPNow Init Success!");
     M5.Lcd.println("ESPNow Init Success!");
   } else {
     Serial.println("ESPNow Init Failed");
+    M5.Lcd.println("ESPNow Init Success!");
     delay(3000);
     ESP.restart();
   }
 
-  esp_now_register_recv_cb(onReceive); //受信したデータを処理する関数を登録する。これで、データを受信したときをトリガーに、割り込み関数のonReceive関数が呼ばれるようになる。ただ単にデータ受信時に呼び出されるコールバック関数を登録するのではなく、onReceiveに引数と同じの関数を登録するものであるので、引数は（macアドレス, 受診したデータを格納しているアドレスを代入するポインタ, 受診したデータの長さ（何バイトか））でなければならない。
-}
+  esp_now_register_recv_cb(onReceive); //データ受信時の割り込み関数を登録する。これで、データを受信したときをトリガーに、割り込み関数のonReceive関数が呼ばれるようになる。ただ単にデータ受信時に呼び出されるコールバック関数を登録するのが「esp_now_register_recv_cb」の行うことではなく、上で定義したonReceiveと同じ引数をもつ関数を登録するものであるので、引数は（macアドレス, 受診したデータを格納しているアドレスを代入するポインタ, 受診したデータの長さ（何バイトか））でなければ登録がうまくいかない。
 
-void loop() {
+  //任意　ディスプレイつきM5製品の画面に文字を表示させるための設定
   M5.Lcd.fillScreen(BLACK);
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.setTextSize(3);
   M5.Lcd.setTextColor(WHITE, BLACK);
-  while (1) {
-  if (flag == 1) {
-    M5.Lcd.setCursor(0, 0);
-    M5.Lcd.println("sensor1:");
-    M5.Lcd.println(receivedData.accX);
-    M5.Lcd.println("sensor2:");
-    M5.Lcd.println(receivedData.accY);
-    M5.Lcd.println("sensor3:");
-    M5.Lcd.println(receivedData.accZ);
-    M5.Lcd.println("button_state:");
-    M5.Lcd.println(receivedData.button_state);
-    // flag = 0;
-  }
-  if (flag == 0) {
-    M5.Lcd.setCursor(0, 0);
-    M5.Lcd.println("Data Waiting...");
-  }
-  // M5.Lcd.printf("length: %d", length);
-  // M5.Lcd.printf("sizeof(receivedData): %d", sizeof(receivedData));
-  //受信時はフラグだけとか、アドレスだけとかの処理にする。多分今は重いんだと思う
-}}
+}
+
+void loop() {
+  M5.Lcd.setCursor(0, 0); //毎回改行されて見えなくなるのを防ぐために、カーソルを毎回先頭に戻す
+  M5.Lcd.println("sensor1:");
+  M5.Lcd.println(receivedData.sensor1); //構造体変数receivedDataに、受け取ったデータをそのままコピーしたので、receivedData.sensor1のようにして構造体のメンバにアクセスすれば受け取った値をそのまま使える！
+  M5.Lcd.println("sensor2:");
+  M5.Lcd.println(receivedData.sensor2);
+  M5.Lcd.println("accX:");
+  M5.Lcd.println(receivedData.accX);
+  M5.Lcd.println("button_state:");
+  M5.Lcd.println(receivedData.button_state);
+}
 
 
 
 ///////////////////////////////////////////////////////////////
-////////////////////MACアドレス確認/////////////////////////////
+////////////////////MACアドレス確認用/////////////////////////////
 ///////////////////////////////////////////////////////////////
 // #include <M5Unified.h>
 // #include <WiFi.h>
@@ -177,5 +104,5 @@ void loop() {
 //   // 何もしない
 // }
 ///////////////////////////////////////////////////////////////
-////////////////////MACアドレス確認/////////////////////////////
+////////////////////MACアドレス確認用/////////////////////////////
 ///////////////////////////////////////////////////////////////
