@@ -31,5 +31,5 @@
 *.out
 *.app
 
-m5core2/.pio
-m5AtomS3Lite/.pio
+old/m5core2/.pio
+old/m5AtomS3Lite/.pio
