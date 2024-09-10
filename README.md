@@ -1,5 +1,6 @@
-# ESP-NOW 簡単な例 / ESP-NOW Simple Example
 
+# ESP-NOW 簡単な例 / ESP-NOW Simple Example
+An explanation in English is provided after the Japanese explanation.
 #### 動作の様子 (Click M5Atom to Update M5Core2 Value)
 ![動作の様子](images/demo.gif)
 
