@@ -64,15 +64,16 @@ void setup() {
 
 void loop() {
   M5.Lcd.setCursor(0, 0); //M5の画面に表示される文字が毎回改行されて見えなくなるのを防ぐために、カーソルを毎回先頭に戻すことで同じ場所に上書き表示されるようにする
-  M5.Lcd.println("sensor1:");
-  M5.Lcd.println(receivedData.sensor1); //構造体変数receivedDataに、受け取ったデータをそのままコピーしたので、receivedData.sensor1のようにして構造体のメンバにアクセスすれば送信先と同じ変数名でそのまま使える！！
-  M5.Lcd.println("sensor2:");
-  M5.Lcd.println(receivedData.sensor2);
-  M5.Lcd.println("gyroX:");
-  M5.Lcd.println(receivedData.gyroX);
+  M5.Lcd.println("Gyro_X:");
+  M5.Lcd.println(receivedData.gyroX); //構造体変数receivedDataに、受け取ったデータをそのままコピーしたので、receivedData.sensor1のようにして構造体のメンバにアクセスすれば送信先と同じ変数名でそのまま使える！！
+  M5.Lcd.println("Gyro_Y:");
+  M5.Lcd.println(receivedData.gyroY);
+  M5.Lcd.println("Gyro_Z:");
+  M5.Lcd.println(receivedData.gyroZ);
   M5.Lcd.println("button_state:");
   M5.Lcd.println(receivedData.button_state);
 }
+
 
 
 
