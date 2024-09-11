@@ -31,5 +31,5 @@
 *.out
 *.app
 
-old/m5core2/.pio
-old/m5AtomS3Lite/.pio
+old/develop_backup/m5core2/.pio
+old/develop_backup/m5AtomS3Lite/.pio
