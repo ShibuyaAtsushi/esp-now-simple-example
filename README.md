@@ -1,8 +1,32 @@
 
+# ※説明文は現在工事中※
+
 # ESP-NOW 簡単な例 / ESP-NOW Simple Example
-An explanation in English is provided after the Japanese explanation.(英語の説明文は日本語説明文の後に書かれています。)
+### An explanation in English is provided after the Japanese explanation.(英語の説明文は日本語説明文の後に書かれています。)
+
+## ESP-NOWとは？
+ESP-NOWとは、ESPマイコンなら使用可能な、低遅延無線通信の規格です。wifiやbluetoothと比べると、以下のような特徴があります。
+
+今回は、誰でも使い方が理解できるよう、なるべくシンプルな例を用意しました。
+直感的なイメージ図
+（ESP-NOWを使うことによって、ESPマイコン間で共有できます。送信側・受信側で同じ構造体を使い、その構造体変数を送受信することで、同じ変数名でデータをやり取りすることができます。）
+
 #### 動作の様子 (Click M5Atom to Update M5Core2 Value)
 ![動作の様子](images/demo.gif)
+
+### 処理の流れ　概要図
+```mermaid
+graph TD
+    A[開始] --> B[プログラムを書き込む]
+    B --> C[両デバイスを実行]
+    C --> D{m5Atomのボタンを押す}
+    D --> E[ESP-NOWで送信]
+    E --> F[m5core2で受信]
+    F --> G[m5core2で押した回数を表示]
+    G --> D
+
+```
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 ## 日本語
 
@@ -28,18 +52,6 @@ ESP-NOWを使用するには、以下の設定が必要です：
 4. m5Atomのボタンを押すたびに、ボタンを押した回数がESP-NOWによって通信され、m5core2に表示されます。
 
 この簡単なデモンストレーションは、2つのデバイス間のESP-NOW通信の基本的な機能を示しています。
-
-```mermaid
-graph TD
-    A[開始] --> B[プログラムを書き込む]
-    B --> C[両デバイスを実行]
-    C --> D{m5Atomのボタンを押す}
-    D --> E[ESP-NOWで送信]
-    E --> F[m5core2で受信]
-    F --> G[m5core2で押した回数を表示]
-    G --> D
-
-```
 
 
 
