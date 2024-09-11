@@ -34,6 +34,7 @@ void onReceive(const uint8_t *mac, const uint8_t *incomingData, int len) {
 
 void setup() {
   // Serial.begin(115200);
+  //M5stackを使う場合
   M5.begin();
 
   //ESP_NOWを使うにはこれが必要
@@ -46,8 +47,8 @@ void setup() {
     Serial.println("ESPNow Init Success!");
     M5.Lcd.println("ESPNow Init Success!");
   } else {
-    Serial.println("ESPNow Init Failed");
-    M5.Lcd.println("ESPNow Init Success!");
+    Serial.println("ESPNow Init Failed!");
+    M5.Lcd.println("ESPNow Init Failed!");
     delay(3000);
     ESP.restart();
   }
@@ -62,13 +63,13 @@ void setup() {
 }
 
 void loop() {
-  M5.Lcd.setCursor(0, 0); //毎回改行されて見えなくなるのを防ぐために、カーソルを毎回先頭に戻す
+  M5.Lcd.setCursor(0, 0); //M5の画面に表示される文字が毎回改行されて見えなくなるのを防ぐために、カーソルを毎回先頭に戻すことで同じ場所に上書き表示されるようにする
   M5.Lcd.println("sensor1:");
-  M5.Lcd.println(receivedData.sensor1); //構造体変数receivedDataに、受け取ったデータをそのままコピーしたので、receivedData.sensor1のようにして構造体のメンバにアクセスすれば受け取った値をそのまま使える！
+  M5.Lcd.println(receivedData.sensor1); //構造体変数receivedDataに、受け取ったデータをそのままコピーしたので、receivedData.sensor1のようにして構造体のメンバにアクセスすれば送信先と同じ変数名でそのまま使える！！
   M5.Lcd.println("sensor2:");
   M5.Lcd.println(receivedData.sensor2);
-  M5.Lcd.println("accX:");
-  M5.Lcd.println(receivedData.accX);
+  M5.Lcd.println("gyroX:");
+  M5.Lcd.println(receivedData.gyroX);
   M5.Lcd.println("button_state:");
   M5.Lcd.println(receivedData.button_state);
 }
