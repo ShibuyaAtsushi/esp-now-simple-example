@@ -4,7 +4,7 @@ ESP-NOWのサンプルプログラムです。なるべくESP-NOWの使い方が
 
 動作確認はM5core2とM5FIREで行いました。
 
-#### 動作の様子 (Click M5Atom to Update M5Core2 Value)
+#### 動作の様子
 ![動作の様子](images/demo.gif)
 
 <!-- 
