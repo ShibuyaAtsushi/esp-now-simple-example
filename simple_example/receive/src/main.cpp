@@ -22,7 +22,7 @@ typedef struct PacketData {
 // 受信データを格納するための構造体変数を作成
 PacketData receivedData; 
 
-//受信時の割り込み関数を定義。ここはこのままで良い。（*macには送信元のMACアドレス、incomingDataには送信されたデータ、lenにはそのデータの長さzの値が勝手に入る。この関数を、後でsetup関数内でデータ受信時に自動で呼び出される割り込み関数として登録することで機能する。）
+//受信時の割り込み関数を定義。ここはいつもこのままで良い。（*macには送信元のMACアドレス、incomingDataには送信されたデータ、lenにはそのデータの長さzの値が勝手に入る。この関数を、後でsetup関数内でデータ受信時に自動で呼び出される割り込み関数として登録することで機能する。）
 void onReceive(const uint8_t *mac, const uint8_t *incomingData, int len) { 
   if (len == sizeof(receivedData)) {  // 受信したデータはPacketData型の構造体を想定しているので、そのサイズと一致しているか念の為確認。
     memcpy(&receivedData, incomingData, sizeof(PacketData)); //受信したデータを構造体にコピーする。第一引数にコピー先の構造体変数のアドレス、第二引数にコピー元のデータのアドレス、第三引数にコピーするデータのサイズを指定する。

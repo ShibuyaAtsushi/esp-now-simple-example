@@ -1,4 +1,6 @@
+ESP-NOWのサンプルプログラムです。構造体を用いて、直感的でわかりやすく通信できるやり方を、わかりやすくなるためになるべくシンプルに書きました。参考になれば幸いです。動作確認はM5core2とM5FIREで行いました。
 
+<!-- 
 # ※説明文は現在工事中※
 
 # ESP-NOW 簡単な例 / ESP-NOW Simple Example
@@ -14,20 +16,9 @@ ESP-NOWとは、ESPマイコンなら使用可能な、低遅延無線通信の�
 #### 動作の様子 (Click M5Atom to Update M5Core2 Value)
 ![動作の様子](images/demo.gif)
 
-### 処理の流れ　概要図
-```mermaid
-graph TD
-    A[開始] --> B[初期化]
-    B --> C[ESP-NOWに使用するMACアドレスなどの初期設定をする]
-    C --> D{}
-    D --> E[ESP-NOWでpacketData型の構造体変数を送信]
-    E --> F[受信したデータのバイト列を、同じpacketData型として受信することで送ったまま受け取れる]
-    F --> G[受け取った値を使って処理する]
-    G --> D
+### 処理の流れ　概要図 -->
 
-```
-ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-
+<!-- 
 ## 日本語
 
 ### 概要
@@ -78,15 +69,4 @@ This sample demonstrates how to implement these basic settings and achieve simpl
 3. Press the button on the m5Atom.
 4. Each time you press the button on the m5Atom, the number of button presses will be communicated via ESP-NOW and displayed on the m5core2.
 
-This simple demonstration showcases the basic functionality of ESP-NOW communication between two devices.
-
-```mermaid
-graph TD
-    A[Start] --> B[Upload program]
-    B --> C[Run both devices]
-    C --> D{Press button on M5Atom}
-    D --> E[Send via ESP-NOW]
-    E --> F[Receive on M5Core2]
-    F --> G[Display button press count on M5Core2]
-    G --> D
-```
+This simple demonstration showcases the basic functionality of ESP-NOW communication between two devices. -->
