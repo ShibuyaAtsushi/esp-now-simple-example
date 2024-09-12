@@ -41,7 +41,7 @@ void setup() {
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
 
-  esp_wifi_set_channel(8, WIFI_SECOND_CHAN_NONE);//ESPNOWで使用するWiFiのチャンネルを設定する。送信側の「peerInfo.channel = 8;」と合わせる必要がある（８は例）。（近いチャンネル（８だったら６や７）だと混信する可能性あり。）12チャンネルまで選べる
+  esp_wifi_set_channel(8, WIFI_SECOND_CHAN_NONE);//ESPNOWで使用するWiFiのチャンネルを設定する。送信側の「peerInfo.channel = 8;」と合わせる必要がある（８は例）。（近いチャンネル（８だったら６や７）だと混信する可能性あり。）14チャンネルまで選べる
 
   if (esp_now_init() == ESP_OK) { //初期化がうまくいかなかったらリスタート。ここもそのままで良い。
     Serial.println("ESPNow Init Success!");
