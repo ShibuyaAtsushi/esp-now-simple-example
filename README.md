@@ -4,7 +4,7 @@ ESP-NOWのサンプルプログラムです。ESP-NOWの使い方がなるべく
 
 プログラムにはコメントでアツい解説が書かれています。
 
-プログラムの場所は、simple_exampleフォルダの中にreceive、sendがあり、それぞれの/src/main.cppにあります。
+プログラムの場所は、simple_exampleフォルダの中にreceive、sendがあり、それぞれのsrcの中です。
 
 動作確認はM5core2とM5FIREで行いました。
 
