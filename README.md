@@ -11,6 +11,9 @@ ESP-NOWのサンプルプログラムです。ESP-NOWの使い方がなるべく
 #### 動作の様子
 ![動作の様子](images/demo.gif)
 
+# ESP-NOWとは？
+ESP-NOWとは、ESPマイコンなら使用可能な低遅延無線通信の規格です。wifiやbluetoothと比べると、以下のような特徴があります。
+
 # ESP-NOWと他の通信方式の比較（初心者向け）
 
 | 特徴 | ESP-NOW | WiFi | Bluetooth |
@@ -79,7 +82,7 @@ ESP-NOWは、ESPマイコン同士の直接通信に特化した技術です。�
 ### An explanation in English is provided after the Japanese explanation.(英語の説明文は日本語説明文の後に書かれています。)
 
 ## ESP-NOWとは？
-ESP-NOWとは、ESPマイコンなら使用可能な、低遅延無線通信の規格です。wifiやbluetoothと比べると、以下のような特徴があります。
+ESP-NOWとは、ESPマイコンなら使用可能な低遅延無線通信の規格です。wifiやbluetoothと比べると、以下のような特徴があります。
 
 今回は、誰でも使い方が理解できるよう、なるべくシンプルな例を用意しました。
 直感的なイメージ図
